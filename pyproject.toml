@@ -3,15 +3,20 @@ name = "invoiceflow"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Lukas Hamm",email = "lukas@lukashamm.dev"}
+    {name = "Lukas Hamm",email = "lukashammdev@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "pydantic (>=2.12.5,<3.0.0)",
+    "pydantic-settings (>=2.13.1,<3.0.0)"
 ]
 
 [tool.poetry]
 packages = [{include = "invoiceflow", from = "src"}]
+
+[tool.poetry.scripts]
+invoiceflow = "invoiceflow.app:run"
 
 
 [build-system]
