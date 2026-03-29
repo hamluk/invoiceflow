@@ -21,7 +21,7 @@ class InvoiceLineItem(BaseModel):
     amount_net: float
 
 
-class ExtractedInvoice(BaseModel):
+class Invoice(BaseModel):
     supplier_name: str
     supplier_uid: str
     recipient_mandant_id: str
@@ -35,5 +35,6 @@ class ExtractedInvoice(BaseModel):
     amount_net: float
     amount_gross: float
 
+    iban: str
     status: InvoiceStatus = InvoiceStatus.ARRIVED
     validation_errors: list[str] = Field(default_factory=list)
