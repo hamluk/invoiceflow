@@ -8,7 +8,6 @@ class InvoiceStatus(str, Enum):
     ARRIVED = "arrived"
     EXTRACTED = "extracted"
     VALIDATED = "validated"
-    ERP_MATCHED = "erp_matched"
     MANUAL_REVIEW = "manual_review"
     FAILED = "failed"
 
@@ -19,6 +18,12 @@ class InvoiceLineItem(BaseModel):
     unit_price: float
     vat_rate: float
     amount_net: float
+
+
+class ERPDetails(BaseModel):
+    po_id: Optional[str] = None
+    approver: Optional[str] = None
+    errors: list[str] = []
 
 
 class Invoice(BaseModel):
@@ -33,8 +38,10 @@ class Invoice(BaseModel):
 
     line_items: list[InvoiceLineItem]
     amount_net: float
+    amount_vat_10: float
+    amount_vat_20: float
     amount_gross: float
 
     iban: str
     status: InvoiceStatus = InvoiceStatus.ARRIVED
-    validation_errors: list[str] = Field(default_factory=list)
+    llm_detected_errors: list[str] = Field(default_factory=list)

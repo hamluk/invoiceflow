@@ -64,9 +64,7 @@ def load_message(queue_message: str) -> ServiceBusMessage:
         for page in doc:
             pix = page.get_pixmap()
             image_bytes = pix.tobytes("png", 100)
-            pix.save(filename="test.png", jpg_quality=100)
 
-    logger.info("message from service bus queue received")
     return ServiceBusMessage(
         invoice_content = text,
         image_b64encoded=base64.b64encode(image_bytes),
