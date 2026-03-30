@@ -26,7 +26,4 @@ def load_prompt_messages(prompt_files_path: str, version: str) -> ChatModelPromp
     with path.open("r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
-    return ChatModelPrompt(
-        system=data["system"],
-        user=data["user"]
-    )
+    return ChatModelPrompt(system=data["system"], user=data["user"])

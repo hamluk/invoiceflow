@@ -10,15 +10,15 @@ OPEN_PURCHASE_ORDERS = [
         "supplier_uid": "ATU61234567",
         "mandant_id": "M-AT-03",
         "amount_gross": 419.20,
-        "approver": "joe@kunde-ag.at"
+        "approver": "joe@kunde-ag.at",
     },
     {
         "po_id": "PO-AT-453201",
         "supplier_uid": "ATU76543210",
         "mandant_id": "M-AT-01",
         "amount_gross": 4116.00,
-        "approver": "alice@kunde-ag.at"
-    }
+        "approver": "alice@kunde-ag.at",
+    },
 ]
 
 

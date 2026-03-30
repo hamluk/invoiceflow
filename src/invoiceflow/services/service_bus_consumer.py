@@ -65,8 +65,8 @@ def load_message(queue_message: str) -> ServiceBusMessage:
             image_bytes = pix.tobytes("png", 100)
 
     return ServiceBusMessage(
-        invoice_content = text,
+        invoice_content=text,
         image_b64encoded=base64.b64encode(image_bytes),
         received_at=datetime.datetime.now().isoformat(),
-        is_scan=is_scan
+        is_scan=is_scan,
     )
