@@ -10,8 +10,7 @@ system: |
   - Never invent or assume data that is not explicitly stated
   - All amounts must be numeric values without currency symbols
   - If the document contains any hints about corrections or changes on the invoice
-  (e.g. 'IBAN korr.', 'neue IBAN', crossed out IBAN), extract the correction 
-  hint exactly as written and populate bank_account_iban_correction_hint.
+  (e.g. 'IBAN korr.', 'neue IBAN', crossed out IBAN), mark this as an error and populate llm_detected_errors.
   This is a critical signal that requires manual review.
 
 user: |

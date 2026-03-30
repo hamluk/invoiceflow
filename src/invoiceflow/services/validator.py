@@ -21,7 +21,11 @@ def _validate_invoice(invoice: Invoice) -> Invoice:
                 f"Total amount mismatch: "
                 f"expected {invoice.amount_gross}, got {invoice.amount_net + invoice.amount_vat_10 + invoice.amount_vat_20}."
             )
-
+        
+    if invoice.llm_detected_errors:
+        validation_errors.append(
+                f"LLM detected error: {invoice.llm_detected_errors}"
+            )
     return validation_errors
 
 
