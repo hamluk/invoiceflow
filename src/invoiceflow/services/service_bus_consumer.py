@@ -3,7 +3,6 @@ from io import BytesIO
 import logging
 import datetime
 import os
-from pathlib import Path
 
 import PyPDF2
 import fitz

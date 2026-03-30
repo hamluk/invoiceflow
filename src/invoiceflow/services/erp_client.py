@@ -1,5 +1,6 @@
 import logging
-from invoiceflow.models.invoice import ERPDetails, Invoice, InvoiceStatus
+from invoiceflow.models.invoice import Invoice
+from invoiceflow.models.erp_detail import ERPDetails, ERPMatchStatus
 
 logger = logging.getLogger(__name__)
 
@@ -35,30 +36,37 @@ def _match_by_fallback(invoice: Invoice) -> dict | None:
         mandant_match = po["mandant_id"] == invoice.recipient_mandant_id
 
         if uid_match and mandant_match:
-            logger.info(f"PO match found via fallback: {po['po_id']}")
+            logger.info(f"PO match found via uuid and mandant: {po['po_id']}")
             return po
 
     return None
 
 
-def match_invoice_with_erp(invoice: Invoice) -> ERPDetails:
+def _match_invoice_with_erp(invoice: Invoice) -> ERPDetails:
     erp_details = ERPDetails()
 
     po = None
-
     if invoice.po_number:
         po = _match_by_po_number(invoice)
-    else:
+
+    if po is None:
         po = _match_by_fallback(invoice)
 
     if po is None:
         logger.warning(f"No ERP match found for invoice: {invoice.invoice_number}")
+
+        erp_details.status = ERPMatchStatus.NO_MATCH
         erp_details.errors.append(
             "No matching purchase order found in ERP — manual review required."
         )
         return erp_details
 
+    erp_details.status = ERPMatchStatus.MATCH
     erp_details.po_id = po["po_id"]
     erp_details.approver = po["approver"]
 
     return erp_details
+
+
+def erp_match(invoice: Invoice) -> ERPDetails:
+    return _match_invoice_with_erp(invoice=invoice)
